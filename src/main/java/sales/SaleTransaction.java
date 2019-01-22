@@ -32,4 +32,8 @@ public class SaleTransaction {
     public Product[] getItems() {
         return items;
     }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
 }

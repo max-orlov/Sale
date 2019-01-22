@@ -29,10 +29,6 @@ public class ProductList {
         return countProducts() == 0;
     }
 
-//    public Product[] getListOfProducts() {
-//        return listOfProducts;
-//    }
-
     public Product getProduct(int ind) {
         if(ind < 0 || ind > listOfProducts.length)
             return null;
