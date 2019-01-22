@@ -1,5 +1,6 @@
 package sales;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -10,19 +11,12 @@ public class Sale {
     public Sale() {
         this.productList = new ProductList();
         this.transaction = new SaleTransaction(new RandomNumberGenerator(1000, 9999).random());
-        /*Product[] prd = new Product[] {
-                new Product("name1", "first prod", 100, 5, 2),
-                new Product("name2", "first prod", 100, 5, 2),
-                new Product("name3", "first prod", 100, 5, 2),
-                new Product("name4", "first prod", 100, 5, 2),
-                new Product("name5", "first prod", 100, 5, 2),
-        };*/
 
-        productList.addProduct("name1", "first prod", 100, 5, 2);
-        productList.addProduct("name2", "second prod", 100, 5, 2);
-        productList.addProduct("name3", "third prod", 100, 5, 2);
-        productList.addProduct("name4", "fourth prod", 100, 456, 2);
-        productList.addProduct("name5", "fifth prod", 100, 5, 2);
+        productList.addProduct("name1", "first prod", 100, 2, 5);
+        productList.addProduct("name2", "second prod", 150, 7, 2);
+        productList.addProduct("name3", "third prod", 200, 6, 2);
+        productList.addProduct("name4", "fourth prod", 320, 12, 2);
+        productList.addProduct("name5", "fifth prod", 180, 10, 2);
     }
 
     public void start(){
@@ -38,7 +32,7 @@ public class Sale {
             System.out.println("Please select from the fallowing options: \n" +
                     "Press 1 to Register a Product for Sale \n" +
                     "Press 2 to Buy a Product to the Cart \n" +
-                    "Press 3  to Remove the Product from the Cart \n" +
+                    "Press 3 to Remove the Product from the Cart \n" +
                     "Press 4 to View all Available Products \n" +
                     "Press 5 to Check out \n" +
                     "Press 6 to Get Help \n" +
@@ -55,6 +49,7 @@ public class Sale {
                     purchaseProduct(n);
                     break;
                 case 3:
+                    removeProduct(n);
                     break;
                 case 4:
                     break;
@@ -93,7 +88,7 @@ public class Sale {
 
     private void purchaseProduct(Scanner s) {
         if (this.productList.isEmpty()) {
-            System.err.println("There are currently no products added in the stock.");
+            System.out.println("There are currently no products added in the stock.");
             System.out.println("Please select Option #1 to add a products to the stock.");
             return;
         }
@@ -102,7 +97,7 @@ public class Sale {
             return;
         }
         System.out.println("Please select from the fallowing products which are available: \n");
-        for (int i = 0; i < productList.countProducts() ; i++){
+        for (int i = 0; i < productList.countProducts() -1 ; i++){
             System.out.println("Select product " + (i +1) + ":");
             System.out.println("    Name: " + this.productList.getProduct(i).getName() );
             System.out.println("    Description: " + this.productList.getProduct(i).getDesc());
@@ -111,31 +106,23 @@ public class Sale {
             System.out.println("    Min Order Quantity: " + this.productList.getProduct(i).getMinOrderQty());
             System.out.println();
         }
-        System.out.println("Select Product " + (productList.countProducts() + 1) +  "to exit purchase menu\n");
+        System.out.println("Select Product " + (productList.countProducts()) +  " to exit purchase menu\n");
         System.out.println("Please enter selected product: ");
         Scanner n = new Scanner(System.in);
         int b = n.nextInt();
-        switch (b) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                return;
-            default:
-                System.out.println("Bad choice");
-
+        if(this.productList.getProduct(b) == null || this.productList.getProduct(b).getQtyOnHand() < this.productList.getProduct(b).getMinOrderQty()) {
+            System.out.println("This product can't be purchased");
+            return;
         }
-
-
-
-
+        transaction.addPurchased(productList.getProduct(b -1));
     }
 
+    private void removeProduct(Scanner n) {
+        if(transaction.isEmpty()) {
+            System.out.println("The stock is empty.\nPlease select Option #2 to Purchase products");
+            return;
+        }
+        System.out.println("Please select from the following products which have been added to Cart");
+
+    }
 }

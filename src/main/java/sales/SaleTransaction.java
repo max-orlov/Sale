@@ -17,13 +17,19 @@ public class SaleTransaction {
     }
 
     public boolean isFull() {
-        return this.index == 3;
+        return this.items[2] != null;
     }
 
-   /* public boolean canBePurcased() {
-    }*/
+    public boolean isEmpty() {
+        return this.items[0] == null;
+    }
 
-    public void addPurchased() {
+    public void addPurchased(Product product) {
+        items[index++] = product;
+        totalCost += this.items[index -1].getPrice();
+    }
 
+    public Product[] getItems() {
+        return items;
     }
 }
