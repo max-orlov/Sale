@@ -10,14 +10,14 @@ public class Sale {
         this.productList = new ProductList();
         this.transaction = new SaleTransaction(new RandomNumberGenerator(1000, 9999).random());
 
-        productList.addProduct("name1", "first prod", 100, 2, 5);
-        productList.addProduct("name2", "second prod", 150, 7, 2);
-        productList.addProduct("name3", "third prod", 200, 6, 2);
-        productList.addProduct("name4", "fourth prod", 320, 12, 2);
-        productList.addProduct("name5", "fifth prod", 180, 10, 2);
+//        productList.addProduct("name1", "first prod", 100, 10, 5);
+//        productList.addProduct("name2", "second prod", 150, 7, 2);
+//        productList.addProduct("name3", "third prod", 200, 6, 2);
+//        productList.addProduct("name4", "fourth prod", 320, 12, 5);
+//        productList.addProduct("name5", "fifth prod", 180, 10, 2);
     }
 
-    public void start(){
+    public void start() {
         while (true) {
             for (int i = 0; i < 27; i++) {
                 System.out.print("=+");
@@ -39,7 +39,7 @@ public class Sale {
             System.out.print("Please enter your choice: ");
             Scanner n = new Scanner(System.in);
             int a = n.nextInt();
-            switch (a){
+            switch (a) {
                 case 1:
                     registerProduct(n);
                     break;
@@ -50,13 +50,16 @@ public class Sale {
                     removeProduct(n);
                     break;
                 case 4:
+                    viewAvailable();
                     break;
                 case 5:
+                    CheckOut();
                     break;
                 case 6:
-                        break;
-                    case 7:
-                        return;
+                    helper();
+                    break;
+                case 7:
+                    return;
                 default:
                     System.out.println("Bad choice");
             }
@@ -64,7 +67,7 @@ public class Sale {
     }
 
     private void registerProduct(Scanner s) {
-        if(this.productList.isFull()){
+        if (this.productList.isFull()) {
             System.out.println("Stock is already full\n");
             return;
         }
@@ -90,37 +93,86 @@ public class Sale {
             System.out.println("Please select Option #1 to add a products to the stock.");
             return;
         }
-        if (this.transaction.isFull()){
+        if (this.transaction.isFull()) {
             System.out.println("The Cart is already full");
             return;
         }
         System.out.println("Please select from the fallowing products which are available: \n");
-        for (int i = 0; i < productList.countProducts() -1 ; i++){
-            System.out.println("Select product " + (i +1) + ":");
-            System.out.println("    Name: " + this.productList.getProduct(i).getName() );
+        for (int i = 0; i < productList.countProducts(); i++) {
+            System.out.println("Select product " + (i + 1) + ":");
+            System.out.println("    Name: " + this.productList.getProduct(i).getName());
             System.out.println("    Description: " + this.productList.getProduct(i).getDesc());
             System.out.println("    Quantity: " + this.productList.getProduct(i).getQtyOnHand());
             System.out.println("    Price: " + this.productList.getProduct(i).getPrice());
             System.out.println("    Min Order Quantity: " + this.productList.getProduct(i).getMinOrderQty());
             System.out.println();
         }
-        System.out.println("Select Product " + (productList.countProducts()) +  " to exit purchase menu\n");
+        System.out.println("Select Product " + (productList.countProducts() + 1) + " to exit purchase menu\n");
         System.out.println("Please enter selected product: ");
-        Scanner n = new Scanner(System.in);
-        int b = n.nextInt();
-        if(this.productList.getProduct(b) == null || this.productList.getProduct(b).getQtyOnHand() < this.productList.getProduct(b).getMinOrderQty()) {
+        int b = s.nextInt() - 1;
+        //System.err.println(this.transaction.totalQty(productList.getProduct(b)));
+        if (this.productList.getProduct(b) == null || this.productList.getProduct(b).getQtyOnHand() <
+                this.transaction.totalQty(productList.getProduct(b)) +
+                        productList.getProduct(b).getMinOrderQty()) {
             System.out.println("This product can't be purchased");
             return;
         }
-        transaction.addPurchased(productList.getProduct(b -1));
+        transaction.addPurchased(productList.getProduct(b));
     }
 
-    private void removeProduct(Scanner n) {
-        if(transaction.isEmpty()) {
-            System.out.println("The stock is empty.\nPlease select Option #2 to Purchase products");
+    private void removeProduct(Scanner s) {
+        if (transaction.isEmpty()) {
+            System.out.println("The Cart is empty.\nPlease select Option #2 to Purchase products");
             return;
         }
-        System.out.println("Please select from the following products which have been added to Cart");
+        System.out.println("Please select from the following products which have been added to Cart:");
+        for (int i = 0; i < transaction.countOfItems(); i++) {
+            System.out.println("Select added item " + (i + 1) + ":");
+            System.out.println("    Name: " + this.transaction.getItem(i).getName());
+            System.out.println("    Desc: " + this.transaction.getItem(i).getDesc());
+            System.out.println("    Quantity: " + this.transaction.getItem(i).getQtyOnHand());
+            System.out.println("    Price: " + this.transaction.getItem(i).getPrice());
+            System.out.println("    Min Order Quantity: " + this.transaction.getItem(i).getMinOrderQty());
+        }
+        System.out.println("\nSelect added item " + (transaction.countOfItems() + 1) + " to exit the remove menu");
+        int a = s.nextInt() - 1;
+        if (a == transaction.countOfItems())
+            return;
+        if (a < 0 || a > transaction.countOfItems()) {
+            System.out.println("This product doesn't exists. Try again");
+            return;
+        }
+        this.transaction.remove(a);
+        //System.err.println(Arrays.toString(transaction.getItems()));
+    }
 
+    private void CheckOut() {
+        if (transaction.isEmpty()) {
+            System.out.println("No items added to Cart.\nPlease select option 2 to purchase items");
+            return;
+        }
+        for (int i = 0; i < transaction.countOfItems(); i++) {
+            productList.qtyOnHandDegree(transaction.getProduct(i));
+        }
+        System.out.println("Sucсesful buying!");
+        System.out.println("Total cost is " + transaction.getTotalCost() + " $");
+        transaction.clear();
+    }
+
+    private void viewAvailable() {
+        for (int i = 0; i < productList.countProducts(); i++) {
+            if (productList.getProduct(i).getQtyOnHand() < productList.getProduct(i).getMinOrderQty())
+                continue;
+            System.out.println("Product # " + (i + 1) + " :");
+            System.out.println("    Name: " + this.productList.getProduct(i).getName());
+            System.out.println("    Desc: " + this.productList.getProduct(i).getDesc());
+            System.out.println("    Quantity: " + this.productList.getProduct(i).getQtyOnHand());
+            System.out.println("    Price: " + this.productList.getProduct(i).getPrice());
+            System.out.println("    Min Order Quantity: " + this.productList.getProduct(i).getMinOrderQty() + "\n");
+        }
+    }
+
+    private void helper() {
+        System.out.println("Hello! Here you can buy any products. Look at Menu!");
     }
 }

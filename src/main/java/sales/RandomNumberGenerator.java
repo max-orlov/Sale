@@ -10,12 +10,11 @@ public class RandomNumberGenerator {
     }
 
     public int random() {
-        return (int)(minimumValue + Math.random() * maximumValue);
+        return (int) (minimumValue + Math.random() * maximumValue);
     }
 
-    public void setValues(int minimumValue, int maximumValue){
+    public void setValues(int minimumValue, int maximumValue) {
         this.minimumValue = minimumValue;
         this.maximumValue = maximumValue;
     }
-
 }

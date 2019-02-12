@@ -7,5 +7,4 @@ public class Program {
         Sale sale = new Sale();
         sale.start();
     }
-
 }

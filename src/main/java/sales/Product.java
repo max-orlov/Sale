@@ -1,5 +1,7 @@
 package sales;
 
+import java.util.Objects;
+
 public class Product {
     private String name;
     private String desc;
@@ -38,15 +40,26 @@ public class Product {
         return minOrderQty;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", desc='" + desc + '\'' +
-                ", price=" + price +
-                ", qtyOnHand=" + qtyOnHand +
-                ", minOrderQty=" + minOrderQty +
-                '}';
+    public void qtyOnHandDegree(int val) {
+        qtyOnHand -= val;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 &&
+                qtyOnHand == product.qtyOnHand &&
+                minOrderQty == product.minOrderQty &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(desc, product.desc);
+    }
+
+    @Override
+    public String toString() {
+        return  "name: '" + name + '\'' +
+                ", price: " + price +
+                ", min order quantity: " + minOrderQty;
+    }
 }
