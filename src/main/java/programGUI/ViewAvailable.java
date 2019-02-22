@@ -1,22 +1,23 @@
 package programGUI;
 
-import javax.swing.DefaultListModel;
 import sales.ProductList;
+
+import javax.swing.DefaultListModel;
 
 public class ViewAvailable extends javax.swing.JFrame {
     ProductList productList;
 
     public ViewAvailable(ProductList productList) {
         this.productList = productList;
-        String[] s = new String[productList.countProducts()];
+       
         initComponents();
+        
         DefaultListModel<String> m = new DefaultListModel<String>();
-        s = productList.getStringProducts();
+        String[] s = this.productList.getStringProducts();
         for (int i = 0; i < productList.countProducts(); i++) {
-            if (productList.getProduct(i).getQtyOnHand() > productList.getProduct(i).getMinOrderQty())
             m.addElement(s[i]);
-        jList3.setModel(m);
         }
+        jList3.setModel(m);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +29,7 @@ public class ViewAvailable extends javax.swing.JFrame {
         jList3 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Available Products"));
 
@@ -90,7 +91,7 @@ public class ViewAvailable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

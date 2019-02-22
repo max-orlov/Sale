@@ -1,9 +1,9 @@
 package programGUI;
 
+import sales.SaleTransaction;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import sales.Product;
-import sales.SaleTransaction;
 
 public class RemoveFromCart extends javax.swing.JFrame {
     SaleTransaction transaction = null;
@@ -34,7 +34,7 @@ public class RemoveFromCart extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -105,7 +105,7 @@ public class RemoveFromCart extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (transaction.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "The Cart is empty", "Error", JOptionPane.ERROR_MESSAGE);
-            this.setVisible(false);
+            this.dispose();
             return;
         }
         int p = jList2.getSelectedIndex();
@@ -120,7 +120,7 @@ public class RemoveFromCart extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

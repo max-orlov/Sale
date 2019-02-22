@@ -1,10 +1,11 @@
 package programGUI;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import sales.Product;
 import sales.ProductList;
 import sales.SaleTransaction;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class AddProductCart extends javax.swing.JFrame {
     private ProductList productList;
@@ -30,6 +31,7 @@ public class AddProductCart extends javax.swing.JFrame {
         jList1.setModel(m);
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +53,7 @@ public class AddProductCart extends javax.swing.JFrame {
 
         jButton3.setText("jButton3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Add product to Cart"));
 
@@ -171,7 +173,7 @@ public class AddProductCart extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <product>
+        <name>Сервелат Европейский</name>
+        <factor>Мясницкий ряд</factor>
+        <description>Колбаса</description>
+        <price unt="RUB">450</price>
+        <qtyOnHand>100</qtyOnHand>
+        <minOrderQty>1</minOrderQty>
+    </product>
+
+    <product>
+        <name>Куриные бедра</name>
+        <factor>Петелинка</factor>
+        <description>Курица</description>
+        <price unt="USD">5</price>
+        <qtyOnHand>150</qtyOnHand>
+        <minOrderQty>2</minOrderQty>
+    </product>
+
+    <product>
+        <name>Чай Lipton</name>
+        <factor>Lipton</factor>
+        <description>Чай</description>
+        <price unt="EUR">2</price>
+        <qtyOnHand>1000</qtyOnHand>
+        <minOrderQty>1</minOrderQty>
+    </product>
+
+    <product>
+        <name>Ананас</name>
+        <factor>Африка</factor>
+        <description>Хороший ананас</description>
+        <price unt="CNY">20</price>
+        <qtyOnHand>1500</qtyOnHand>
+        <minOrderQty>10</minOrderQty>
+    </product>
+</products>

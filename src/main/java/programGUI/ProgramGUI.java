@@ -1,9 +1,10 @@
 package programGUI;
 
-import javax.swing.JOptionPane;
 import sales.ProductList;
 import sales.RandomNumberGenerator;
 import sales.SaleTransaction;
+
+import javax.swing.JOptionPane;
 
 public class ProgramGUI extends javax.swing.JFrame {
     private ProductList productList;
@@ -11,11 +12,11 @@ public class ProgramGUI extends javax.swing.JFrame {
 
     public ProgramGUI() {
         this.productList = new ProductList();
-        productList.addProduct("name1", "first prod", 100, 10, 5);
-        productList.addProduct("name2", "second prod", 150, 7, 2);
-        productList.addProduct("name3", "third prod", 200, 6, 2);
-        productList.addProduct("name4", "fourth prod", 320, 12, 5);
-        productList.addProduct("name5", "fifth prod", 180, 10, 2);
+//        productList.addProduct("name1", "first prod", 100, 10, 5);
+//        productList.addProduct("name2", "second prod", 150, 7, 2);
+//        productList.addProduct("name3", "third prod", 200, 6, 2);
+//        productList.addProduct("name4", "fourth prod", 320, 12, 5);
+//        productList.addProduct("name5", "fifth prod", 180, 10, 2);
         this.transaction = new SaleTransaction(new RandomNumberGenerator(1000, 9999).random());
         initComponents();
     }

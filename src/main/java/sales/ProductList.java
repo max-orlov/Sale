@@ -1,5 +1,6 @@
 package sales;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ProductList {
@@ -14,6 +15,22 @@ public class ProductList {
     public void addProduct(String name, String desc, double price, int qtyOnHand, int minOrderQty) {
         Product prd = new Product(name, desc, price, qtyOnHand, minOrderQty);
         listOfProducts[index++] = prd;
+    }
+    
+    public void addProduct(Product product) {
+        listOfProducts[index++] = product;
+    }
+    
+    public int addProducts(ArrayList<Product> products) {
+        int addedCount = 0;
+        for (int i = 0; i < products.size(); i++) {
+            if(!isFull()){
+                addProduct(products.get(i));
+                addedCount++;
+            }
+        }
+        
+        return addedCount;
     }
 
     public boolean isFull() {

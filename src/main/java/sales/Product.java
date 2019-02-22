@@ -44,6 +44,26 @@ public class Product {
         qtyOnHand -= val;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setQtyOnHand(int qtyOnHand) {
+        this.qtyOnHand = qtyOnHand;
+    }
+
+    public void setMinOrderQty(int minOrderQty) {
+        this.minOrderQty = minOrderQty;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +79,7 @@ public class Product {
     @Override
     public String toString() {
         return  "name: '" + name + '\'' +
-                ", price: " + price +
+                ", price: " + String.format("%.2f", price) +
                 ", min order quantity: " + minOrderQty;
     }
 }
