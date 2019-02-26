@@ -1,10 +1,9 @@
 package programGUI;
 
+import javax.swing.JOptionPane;
 import sales.ProductList;
 import sales.RandomNumberGenerator;
 import sales.SaleTransaction;
-
-import javax.swing.JOptionPane;
 
 public class ProgramGUI extends javax.swing.JFrame {
     private ProductList productList;

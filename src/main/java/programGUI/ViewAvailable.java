@@ -1,8 +1,7 @@
 package programGUI;
 
-import sales.ProductList;
-
 import javax.swing.DefaultListModel;
+import sales.ProductList;
 
 public class ViewAvailable extends javax.swing.JFrame {
     ProductList productList;

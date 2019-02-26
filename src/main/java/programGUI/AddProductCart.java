@@ -1,11 +1,10 @@
 package programGUI;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import sales.Product;
 import sales.ProductList;
 import sales.SaleTransaction;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 public class AddProductCart extends javax.swing.JFrame {
     private ProductList productList;
@@ -30,7 +29,6 @@ public class AddProductCart extends javax.swing.JFrame {
         }
         jList1.setModel(m);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -2,6 +2,7 @@ package sales;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ProductList {
     private Product[] listOfProducts;
@@ -21,7 +22,7 @@ public class ProductList {
         listOfProducts[index++] = product;
     }
     
-    public int addProducts(ArrayList<Product> products) {
+    public int addProducts(List<Product> products) {
         int addedCount = 0;
         for (int i = 0; i < products.size(); i++) {
             if(!isFull()){
@@ -72,6 +73,12 @@ public class ProductList {
         }
         return str;
     }
+
+    public Product[] getListOfProducts() {
+        return listOfProducts;
+    }
+    
+    
 
     @Override
     public String toString() {

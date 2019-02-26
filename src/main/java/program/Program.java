@@ -5,14 +5,14 @@ import sales.Product;
 import xml.XMLProductWorker;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Program {
     public static void main(String[] args) {
-        /*Sale sale = new Sale();
-        sale.start();*/
+        //Sale sale = new Sale();
+        //sale.start();
 
         /*Converter converter = new Converter(Converter.RUB);
         double convert1 = converter.convert(200, Converter.USD);
@@ -29,7 +29,7 @@ public class Program {
 
         try {
             XMLProductWorker worker = new XMLProductWorker("products.xml");
-            ArrayList<Product> products = worker.getProducts();
+            List<Product> products = worker.getProducts();
             for (int i = 0; i < products.size(); i++) {
                 Product product = products.get(i);
                 System.out.println(product.getName() + " " + product.getDesc() + " "

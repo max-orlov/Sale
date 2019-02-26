@@ -1,5 +1,8 @@
 package xml;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,24 +14,29 @@ import util.Converter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class XMLProductWorker {
     private File xmlPath;
-    private ArrayList<Product> products;
+    private List<Product> products;
 
     public XMLProductWorker(String xmlPath) throws ParserConfigurationException, IOException, SAXException {
         this.xmlPath = new File(xmlPath);
         this.products = parse();
     }
-
+    
     public XMLProductWorker(File xmlPath) throws ParserConfigurationException, IOException, SAXException {
         this.xmlPath = xmlPath;
         this.products = parse();
     }
-
+    
+    public XMLProductWorker(File xmlPath, Product[] products) throws ParserConfigurationException, IOException, SAXException {
+        this.xmlPath = xmlPath;
+        this.products = Arrays.asList(products);
+    }
 
     public ArrayList<Product> parse() throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -64,8 +72,29 @@ public class XMLProductWorker {
         }
         return products;
     }
+    
+    public void save() throws IOException {
+        String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+        XML += "<products>";
+        for (int i = 0; i < this.products.size(); i++) {
+            Product pr = this.products.get(i);
+            if(pr == null)
+                continue;
+            XML += "<product>";
+            XML += "<name>" + pr.getName() + "</name>";
+            XML += "<description>" + pr.getDesc()+ "</description>";
+            XML += "<price>" + String.format("%.2f", pr.getPrice()) + "</price>";
+            XML += "<qtyOnHand>" + pr.getQtyOnHand()+ "</qtyOnHand>";
+            XML += "<minOrderQty>" + pr.getMinOrderQty()+ "</minOrderQty>";
+            XML += "</product>";             
+        }
+        XML += "</products>";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(xmlPath));
+        writer.write(XML);
+        writer.close();
+    }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 }

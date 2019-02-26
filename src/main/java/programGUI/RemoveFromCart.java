@@ -1,9 +1,9 @@
 package programGUI;
 
-import sales.SaleTransaction;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import sales.Product;
+import sales.SaleTransaction;
 
 public class RemoveFromCart extends javax.swing.JFrame {
     SaleTransaction transaction = null;
@@ -105,7 +105,7 @@ public class RemoveFromCart extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (transaction.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "The Cart is empty", "Error", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
+            this.setVisible(false);
             return;
         }
         int p = jList2.getSelectedIndex();

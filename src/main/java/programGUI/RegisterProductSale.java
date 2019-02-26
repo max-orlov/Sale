@@ -1,10 +1,15 @@
 package programGUI;
 
+import java.awt.TrayIcon;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,6 +44,8 @@ public class RegisterProductSale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -54,7 +61,11 @@ public class RegisterProductSale extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -158,10 +169,16 @@ public class RegisterProductSale extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setText("Sava as...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -238,7 +255,7 @@ public class RegisterProductSale extends javax.swing.JFrame {
             try {
                 System.out.println(chooser.getSelectedFile().getAbsolutePath());
                 XMLProductWorker worker = new XMLProductWorker(chooser.getSelectedFile());
-                ArrayList<Product> products = worker.getProducts();
+                List<Product> products = worker.getProducts();
                 int addedCount = this.productList.addProducts(products);
 
                 DefaultListModel<String> m = new DefaultListModel<String>();
@@ -259,6 +276,36 @@ public class RegisterProductSale extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(productList.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "There are currently no products added in the stock.\n"
+                + "Please add a products to the stock.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;  
+        }
+            
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(new File("products.xml"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XML Files", "xml");
+        chooser.setFileFilter(filter);
+        
+        int res = chooser.showSaveDialog(jPanel1);
+        if(res == JFileChooser.APPROVE_OPTION){
+            try {
+                System.out.println(chooser.getSelectedFile().getAbsolutePath());
+                XMLProductWorker worker = new XMLProductWorker(chooser.getSelectedFile(), this.productList.getListOfProducts());
+                worker.save();
+
+                JOptionPane.showMessageDialog(rootPane, "Added " + "save");
+            } catch (ParserConfigurationException ex) {
+                Logger.getLogger(RegisterProductSale.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(RegisterProductSale.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                Logger.getLogger(RegisterProductSale.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -267,9 +314,11 @@ public class RegisterProductSale extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
